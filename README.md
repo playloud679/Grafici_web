@@ -33,60 +33,37 @@ Grafici_web/
 
 ## Come Caricare il Sito su Aruba
 
-### Metodo 1: FTP (Raccomandato)
+### Metodo 1: File Manager Web di Aruba (Raccomandato - Nessun software richiesto)
 
-1. **Accedi al pannello di controllo Aruba**
-   - Vai su https://www.aruba.it
-   - Accedi con le tue credenziali
+**Per una guida completa passo-passo con screenshot e risoluzione problemi, leggi [GUIDA_FILE_MANAGER_ARUBA.md](GUIDA_FILE_MANAGER_ARUBA.md)**
 
-2. **Recupera le credenziali FTP**
-   - Nel pannello di controllo, vai su "Gestione Hosting"
-   - Trova le credenziali FTP (Host, Username, Password)
-   - Di solito:
-     - Host: `ftp.tuodominio.it` o `ftp.aruba.it`
-     - Username: il tuo username Aruba
-     - Password: la tua password Aruba
+Procedura rapida:
 
-3. **Scarica un client FTP**
+1. **Accedi al pannello Aruba** su https://www.aruba.it
+2. **Vai su "File Manager"** nel menu
+3. **Naviga nella cartella principale** del sito (`/www` o `/public_html`)
+4. **Carica `index.html`** nella root
+5. **Crea le cartelle** `css`, `js`, `img`
+6. **Carica i file nelle cartelle**:
+   - `style.css` nella cartella `css/`
+   - `charts.js` nella cartella `js/`
+7. **Carica `.htaccess`** nella root
+8. **Verifica** il sito su `http://tuodominio.it`
+
+### Metodo 2: FTP (Per utenti avanzati)
+
+1. **Scarica un client FTP**
    - FileZilla (Windows/Mac/Linux): https://filezilla-project.org/
    - WinSCP (Windows): https://winscp.net/
    - Cyberduck (Mac): https://cyberduck.io/
 
-4. **Connetti al server FTP**
-   - Apri FileZilla (o altro client FTP)
-   - Inserisci:
-     - Host: `ftp.tuodominio.it`
-     - Nome utente: tuo username
-     - Password: tua password
-     - Porta: 21
-   - Clicca "Connessione rapida"
+2. **Recupera le credenziali FTP** dal pannello Aruba
+   - Host: `ftp.tuodominio.it` o `ftp.aruba.it`
+   - Username e password dal pannello
 
-5. **Carica i file**
-   - Nel pannello locale (sinistro), vai alla cartella `Grafici_web`
-   - Nel pannello remoto (destro), vai nella cartella principale del sito (di solito `/` o `/www` o `/public_html`)
-   - Seleziona tutti i file e cartelle:
-     - `index.html`
-     - `css/`
-     - `js/`
-     - `img/`
-     - `.htaccess`
-   - Trascina i file dal pannello locale a quello remoto
-   - Aspetta che il caricamento sia completato
+3. **Connetti al server FTP** e carica tutti i file nella cartella principale
 
-6. **Verifica il sito**
-   - Vai su `http://tuodominio.it`
-   - Dovresti vedere la dashboard con i grafici
-
-### Metodo 2: File Manager Web di Aruba
-
-1. Accedi al pannello di controllo Aruba
-2. Vai su "Gestione File" o "File Manager"
-3. Naviga nella cartella principale del sito (`/www` o `/public_html`)
-4. Usa il pulsante "Carica" per caricare i file:
-   - Carica `index.html` nella root
-   - Crea le cartelle `css`, `js`, `img`
-   - Carica i file nelle rispettive cartelle
-   - Carica `.htaccess` nella root
+4. **Verifica** il sito su `http://tuodominio.it`
 
 ### Configurazione SSL (HTTPS)
 
