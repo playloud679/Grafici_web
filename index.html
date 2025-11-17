@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dashboard interattiva con grafici dinamici">
+    <title>Grafici Web - Dashboard Interattiva</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Dashboard Grafici Interattivi</h1>
+            <p class="subtitle">Visualizza i tuoi dati in tempo reale</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="stats-grid">
+            <div class="stat-card">
+                <h3>Utenti Totali</h3>
+                <p class="stat-value">2,547</p>
+                <span class="stat-change positive">+12.5%</span>
+            </div>
+            <div class="stat-card">
+                <h3>Vendite Mensili</h3>
+                <p class="stat-value">€45,890</p>
+                <span class="stat-change positive">+8.3%</span>
+            </div>
+            <div class="stat-card">
+                <h3>Tasso Conversione</h3>
+                <p class="stat-value">3.24%</p>
+                <span class="stat-change negative">-2.1%</span>
+            </div>
+            <div class="stat-card">
+                <h3>Soddisfazione</h3>
+                <p class="stat-value">94%</p>
+                <span class="stat-change positive">+5.2%</span>
+            </div>
+        </section>
+
+        <section class="charts-grid">
+            <div class="chart-container">
+                <h2>Vendite Mensili</h2>
+                <canvas id="salesChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <h2>Distribuzione Utenti</h2>
+                <canvas id="usersChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <h2>Andamento Traffico</h2>
+                <canvas id="trafficChart"></canvas>
+            </div>
+
+            <div class="chart-container">
+                <h2>Performance Prodotti</h2>
+                <canvas id="productsChart"></canvas>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Grafici Web. Tutti i diritti riservati.</p>
+        </div>
+    </footer>
+
+    <script src="js/charts.js"></script>
+</body>
+</html>
