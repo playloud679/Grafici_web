@@ -1,174 +1,237 @@
-# Grafici Web - Dashboard Interattiva
+# steolab - Embedded & IoT Solutions
 
-Dashboard moderna e responsive con grafici interattivi realizzata con HTML, CSS e JavaScript (Chart.js).
+Sito web professionale per **steolab**, specializzato in sviluppo embedded, soluzioni IoT e tool di recovery hardware.
+
+![steolab](img/logo.png)
 
 ## Caratteristiche
 
-- Dashboard con 4 grafici interattivi (vendite, utenti, traffico, prodotti)
-- Design responsive per mobile, tablet e desktop
-- Statistiche in tempo reale con card animate
-- Ottimizzata per le performance
-- Configurazione Apache pronta per hosting Aruba
+- Sito web moderno e responsive
+- Design professionale con brand identity (rosso, nero, blu)
+- Portfolio progetti con link a GitHub
+- Sezione servizi dettagliata
+- Form contatti funzionante
+- Ottimizzato per SEO e performance
+- Pronto per hosting Aruba
 
-## Tecnologie Utilizzate
+## Servizi Offerti
 
-- HTML5
-- CSS3 (con CSS Grid e Flexbox)
-- JavaScript (ES6+)
-- Chart.js 4.4.0 (libreria per grafici)
+### Sviluppo Embedded
+Firmware e software embedded in C/C++ per microcontrollori e sistemi embedded. Esperienza con schede LILYGO e moduli cellulari.
+
+### Soluzioni IoT
+Progettazione e implementazione di sistemi IoT con connettività cellulare. Configurazione modem SIM7000G per reti europee e italiane.
+
+### Tool di Recovery
+Sviluppo di tool automatici per il recovery e la configurazione di dispositivi hardware. Soluzioni one-click.
+
+### Consulenza Tecnica
+Supporto tecnico specializzato per progetti embedded e IoT. Analisi requisiti, scelta componenti e troubleshooting.
+
+## Competenze Tecniche
+
+**Linguaggi:** C/C++, Python, JavaScript, Assembly
+**Hardware:** LILYGO, ESP32/ESP8266, Arduino, Modem SIM7000G
+**Protocolli:** MQTT, HTTP/HTTPS, CoAP, Serial (UART/I2C/SPI)
+**Tool:** Arduino IDE, PlatformIO, Git/GitHub, VS Code
+
+## Progetti in Evidenza
+
+### LILYGO SIM7000G Recovery Tool
+Tool automatico di recovery per schede LILYGO T-SIM7000G con modem non responsivi. Configurazione one-click per reti EU/Italia.
+
+- [GitHub Repository](https://github.com/playloud679/LILYGO_SIM7000G_Recovery_Tool)
+- Recovery automatico con un click
+- Configurazione pre-impostata per EU/Italia
+- Interfaccia user-friendly
+- Diagnostica integrata
 
 ## Struttura del Progetto
 
 ```
-Grafici_web/
-├── index.html          # Pagina principale
+steolab/
+├── index.html          # Homepage principale
 ├── css/
-│   └── style.css      # Stili del sito
+│   └── style.css      # Stili custom con brand colors
 ├── js/
-│   └── charts.js      # Configurazione grafici
-├── img/               # Cartella per immagini (vuota)
-├── .htaccess          # Configurazione Apache
-└── README.md          # Questo file
+│   └── main.js        # JavaScript per interattività
+├── img/
+│   └── logo.png       # Logo steolab
+├── .htaccess          # Configurazione Apache per Aruba
+├── README.md          # Questo file
+└── GUIDA_FILE_MANAGER_ARUBA.md  # Guida caricamento
 ```
+
+## Tecnologie Utilizzate
+
+- **HTML5** - Struttura semantica
+- **CSS3** - Design moderno con variabili CSS e animazioni
+- **JavaScript (ES6+)** - Interattività e UX
+- **Responsive Design** - Mobile-first approach
+- **SEO Optimized** - Meta tags e struttura ottimizzata
 
 ## Come Caricare il Sito su Aruba
 
-### Metodo 1: File Manager Web di Aruba (Raccomandato - Nessun software richiesto)
+### Metodo 1: File Manager Web (Raccomandato)
 
-**Per una guida completa passo-passo con screenshot e risoluzione problemi, leggi [GUIDA_FILE_MANAGER_ARUBA.md](GUIDA_FILE_MANAGER_ARUBA.md)**
+**📖 Per una guida completa passo-passo, leggi [GUIDA_FILE_MANAGER_ARUBA.md](GUIDA_FILE_MANAGER_ARUBA.md)**
 
 Procedura rapida:
 
-1. **Accedi al pannello Aruba** su https://www.aruba.it
-2. **Vai su "File Manager"** nel menu
-3. **Naviga nella cartella principale** del sito (`/www` o `/public_html`)
-4. **Carica `index.html`** nella root
-5. **Crea le cartelle** `css`, `js`, `img`
-6. **Carica i file nelle cartelle**:
-   - `style.css` nella cartella `css/`
-   - `charts.js` nella cartella `js/`
-7. **Carica `.htaccess`** nella root
-8. **Verifica** il sito su `http://tuodominio.it`
+1. Accedi al pannello Aruba su https://www.aruba.it
+2. Vai su "File Manager" nel menu
+3. Naviga nella cartella `/www` o `/public_html`
+4. Carica `index.html` nella root
+5. Crea le cartelle `css`, `js`, `img`
+6. Carica i file nelle rispettive cartelle
+7. Carica `.htaccess` nella root
+8. Verifica il sito su `http://tuodominio.it`
 
 ### Metodo 2: FTP (Per utenti avanzati)
 
-1. **Scarica un client FTP**
-   - FileZilla (Windows/Mac/Linux): https://filezilla-project.org/
-   - WinSCP (Windows): https://winscp.net/
-   - Cyberduck (Mac): https://cyberduck.io/
+1. Scarica FileZilla: https://filezilla-project.org/
+2. Connetti con le credenziali FTP dal pannello Aruba
+3. Carica tutti i file nella cartella principale
+4. Verifica il sito
 
-2. **Recupera le credenziali FTP** dal pannello Aruba
-   - Host: `ftp.tuodominio.it` o `ftp.aruba.it`
-   - Username e password dal pannello
+## Personalizzazione
 
-3. **Connetti al server FTP** e carica tutti i file nella cartella principale
+### Modificare i Colori del Brand
 
-4. **Verifica** il sito su `http://tuodominio.it`
+Apri `css/style.css` e modifica le variabili CSS (righe 14-20):
 
-### Configurazione SSL (HTTPS)
+```css
+:root {
+    --color-primary: #dc2626;        /* Rosso */
+    --color-secondary: #3b82f6;      /* Blu */
+    --color-dark: #1a1a1a;           /* Nero */
+    /* ... */
+}
+```
+
+### Modificare i Contenuti
+
+- **Testi:** Modifica `index.html`
+- **Servizi:** Sezione "Servizi Offerti" in `index.html`
+- **Progetti:** Sezione "Progetti in Evidenza" in `index.html`
+- **Contatti:** Sezione "Contatti" in `index.html`
+
+### Aggiungere Nuovi Progetti
+
+Duplica la struttura `.project-card` in `index.html` (righe 134-162) e modifica:
+
+```html
+<div class="project-card">
+    <div class="project-header">
+        <h3>Nome Progetto</h3>
+        <a href="LINK_GITHUB" target="_blank" class="project-link">
+            <!-- GitHub icon -->
+        </a>
+    </div>
+    <p class="project-description">
+        Descrizione progetto...
+    </p>
+    <div class="project-tags">
+        <span class="tag">Tag1</span>
+        <span class="tag">Tag2</span>
+    </div>
+    <!-- ... -->
+</div>
+```
+
+### Modificare Email di Contatto
+
+In `index.html` (riga 271), modifica:
+
+```html
+<a href="mailto:TUA-EMAIL@dominio.it">TUA-EMAIL@dominio.it</a>
+```
+
+## Configurazione SSL/HTTPS
 
 Se hai un certificato SSL su Aruba:
 
-1. Apri il file `.htaccess`
-2. Rimuovi i commenti (`#`) dalle righe:
-   ```apache
-   # RewriteCond %{HTTPS} off
-   # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-   ```
-   Diventeranno:
+1. Apri `.htaccess`
+2. Rimuovi i commenti (`#`) dalle righe 6-7:
    ```apache
    RewriteCond %{HTTPS} off
    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
    ```
-3. Ricarica il file `.htaccess` via FTP
+3. Salva e ricarica su Aruba
 
-### Configurazione WWW
+## SEO e Performance
 
-Se vuoi forzare o rimuovere il `www` dal dominio:
+Il sito include:
 
-**Per rimuovere www** (es. www.tuodominio.it → tuodominio.it):
-```apache
-RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
-RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
-```
+- ✅ Meta tags ottimizzati
+- ✅ Semantic HTML5
+- ✅ Compressione GZIP (via .htaccess)
+- ✅ Cache browser configurata
+- ✅ Immagini ottimizzate
+- ✅ Lazy loading per animazioni
+- ✅ Mobile-first responsive design
 
-**Per aggiungere www** (es. tuodominio.it → www.tuodominio.it):
-```apache
-RewriteCond %{HTTP_HOST} ^[^.]+\.[^.]+$
-RewriteRule ^(.*)$ https://www.%{HTTP_HOST}/$1 [L,R=301]
-```
+## Browser Supportati
 
-## Personalizzazione
-
-### Modificare i dati dei grafici
-
-Apri `js/charts.js` e modifica i dati nei vari dataset. Esempio:
-
-```javascript
-datasets: [{
-    label: 'Vendite 2024',
-    data: [12500, 19800, 15600, ...], // <-- Modifica questi valori
-    ...
-}]
-```
-
-### Modificare i colori
-
-Apri `css/style.css` e modifica le variabili CSS all'inizio del file:
-
-```css
-:root {
-    --primary-color: #6366f1;     /* Colore primario */
-    --secondary-color: #8b5cf6;   /* Colore secondario */
-    --success-color: #10b981;     /* Colore successo */
-    ...
-}
-```
-
-### Modificare i testi
-
-Apri `index.html` e modifica i testi direttamente nel codice HTML.
+- Chrome/Edge (ultimi 2 versioni)
+- Firefox (ultimi 2 versioni)
+- Safari (ultimi 2 versioni)
+- Mobile browsers (iOS Safari, Chrome Mobile)
 
 ## Risoluzione Problemi
 
-### Il sito non si carica
+### Il logo non si vede
 
-1. Verifica che `index.html` sia nella cartella principale
-2. Controlla i permessi dei file (devono essere 644 per i file, 755 per le cartelle)
-3. Verifica che il dominio sia correttamente puntato al tuo hosting
+Verifica che `img/logo.png` sia presente e che il percorso in `index.html` sia corretto.
 
-### I grafici non vengono visualizzati
+### Il menu mobile non funziona
 
-1. Controlla la console del browser (F12) per errori
-2. Verifica che il file `js/charts.js` sia stato caricato correttamente
-3. Assicurati che il CDN di Chart.js sia accessibile
+Controlla che `js/main.js` sia caricato correttamente e che non ci siano errori nella console (F12).
 
-### Errore 500
+### Gli stili non vengono applicati
 
-1. Controlla il file `.htaccess` per errori di sintassi
-2. Verifica che mod_rewrite sia abilitato sul server Aruba
-3. Prova a rinominare temporaneamente `.htaccess` in `.htaccess.bak` per vedere se il problema persiste
+1. Verifica che `css/style.css` sia presente
+2. Svuota la cache del browser (Ctrl+F5)
+3. Controlla il percorso in `index.html` (riga 9)
 
-### CSS o JS non si aggiornano
+### Form contatti non funziona
 
-1. Svuota la cache del browser (Ctrl+F5)
-2. Verifica che i file siano stati caricati correttamente via FTP
-3. Controlla che i percorsi nei file HTML siano corretti
+Il form è configurato per mostrare solo una notifica. Per un form funzionante:
 
-## Supporto
+1. Crea un endpoint PHP sul server
+2. Modifica `js/main.js` (riga 95) per inviare i dati al server
+3. Oppure usa servizi come Formspree, EmailJS, ecc.
 
-Per problemi con l'hosting Aruba:
-- Supporto Aruba: https://assistenza.aruba.it/
-- Telefono: 0575 0505
+## Contatti
 
-Per problemi con il codice:
-- Apri una issue su GitHub
+- **GitHub:** [github.com/playloud679](https://github.com/playloud679)
+- **Email:** info@steolab.it
+- **Ubicazione:** Italia
 
 ## Licenza
 
-Questo progetto è open source e disponibile per uso personale e commerciale.
+© 2024 steolab. Tutti i diritti riservati.
 
-## Crediti
+Questo sito è proprietà di steolab e può essere utilizzato liberamente per scopi personali e commerciali della propria attività.
 
-- Chart.js: https://www.chartjs.org/
-- Font: System fonts
+## Sviluppo Futuro
+
+Possibili miglioramenti:
+
+- [ ] Aggiungere sezione blog/articoli tecnici
+- [ ] Integrare form contatti con backend
+- [ ] Aggiungere più progetti al portfolio
+- [ ] Implementare versione multilingua (IT/EN)
+- [ ] Aggiungere sezione testimonial/recensioni
+- [ ] Creare area download per tool e documentazione
+
+## Credits
+
+- Design & Development: steolab
+- Icons: SVG inline custom
+- Fonts: System fonts
+- Hosting: Aruba
+
+---
+
+**Built with ❤️ for embedded systems**

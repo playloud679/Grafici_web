@@ -3,72 +3,346 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Dashboard interattiva con grafici dinamici">
-    <title>Grafici Web - Dashboard Interattiva</title>
+    <meta name="description" content="steolab - Sviluppo Embedded, IoT e Soluzioni Hardware. Tool di recovery, sistemi embedded e consulenza tecnica specializzata.">
+    <meta name="keywords" content="embedded, IoT, C++, SIM7000G, LILYGO, recovery tool, sviluppo hardware, consulenza tecnica">
+    <title>steolab - Sviluppo Embedded & IoT Solutions</title>
     <link rel="stylesheet" href="css/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
 </head>
 <body>
-    <header>
+    <!-- Navigation -->
+    <nav class="navbar">
         <div class="container">
-            <h1>Dashboard Grafici Interattivi</h1>
-            <p class="subtitle">Visualizza i tuoi dati in tempo reale</p>
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <img src="img/logo.png" alt="steolab logo">
+                </div>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#home" class="nav-link">Home</a></li>
+                    <li><a href="#servizi" class="nav-link">Servizi</a></li>
+                    <li><a href="#progetti" class="nav-link">Progetti</a></li>
+                    <li><a href="#contatti" class="nav-link">Contatti</a></li>
+                </ul>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
         </div>
-    </header>
+    </nav>
 
-    <main class="container">
-        <section class="stats-grid">
-            <div class="stat-card">
-                <h3>Utenti Totali</h3>
-                <p class="stat-value">2,547</p>
-                <span class="stat-change positive">+12.5%</span>
-            </div>
-            <div class="stat-card">
-                <h3>Vendite Mensili</h3>
-                <p class="stat-value">€45,890</p>
-                <span class="stat-change positive">+8.3%</span>
-            </div>
-            <div class="stat-card">
-                <h3>Tasso Conversione</h3>
-                <p class="stat-value">3.24%</p>
-                <span class="stat-change negative">-2.1%</span>
-            </div>
-            <div class="stat-card">
-                <h3>Soddisfazione</h3>
-                <p class="stat-value">94%</p>
-                <span class="stat-change positive">+5.2%</span>
-            </div>
-        </section>
-
-        <section class="charts-grid">
-            <div class="chart-container">
-                <h2>Vendite Mensili</h2>
-                <canvas id="salesChart"></canvas>
-            </div>
-
-            <div class="chart-container">
-                <h2>Distribuzione Utenti</h2>
-                <canvas id="usersChart"></canvas>
-            </div>
-
-            <div class="chart-container">
-                <h2>Andamento Traffico</h2>
-                <canvas id="trafficChart"></canvas>
-            </div>
-
-            <div class="chart-container">
-                <h2>Performance Prodotti</h2>
-                <canvas id="productsChart"></canvas>
-            </div>
-        </section>
-    </main>
-
-    <footer>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
         <div class="container">
-            <p>&copy; 2024 Grafici Web. Tutti i diritti riservati.</p>
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Sviluppo <span class="highlight">Embedded</span> & <span class="highlight">IoT</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Soluzioni hardware avanzate, tool di recovery e consulenza tecnica specializzata per sistemi embedded e dispositivi IoT
+                </p>
+                <div class="hero-buttons">
+                    <a href="#servizi" class="btn btn-primary">Scopri i Servizi</a>
+                    <a href="#progetti" class="btn btn-secondary">Vedi Progetti</a>
+                </div>
+            </div>
+        </div>
+        <div class="hero-bg"></div>
+    </section>
+
+    <!-- Servizi Section -->
+    <section id="servizi" class="services">
+        <div class="container">
+            <h2 class="section-title">Servizi Offerti</h2>
+            <p class="section-subtitle">Competenze tecniche specializzate per il tuo progetto</p>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                        </svg>
+                    </div>
+                    <h3>Sviluppo Embedded</h3>
+                    <p>Sviluppo firmware e software embedded in C/C++ per microcontrollori e sistemi embedded. Esperienza con schede LILYGO e moduli cellulari.</p>
+                    <ul class="service-features">
+                        <li>Programmazione C/C++</li>
+                        <li>Firmware development</li>
+                        <li>Debug e ottimizzazione</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="2"></circle>
+                            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path>
+                        </svg>
+                    </div>
+                    <h3>Soluzioni IoT</h3>
+                    <p>Progettazione e implementazione di sistemi IoT con connettività cellulare. Configurazione modem SIM7000G per reti europee e italiane.</p>
+                    <ul class="service-features">
+                        <li>Modem cellulari (2G/3G/4G/LTE)</li>
+                        <li>Configurazione reti EU/IT</li>
+                        <li>Protocolli MQTT, HTTP, CoAP</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                        </svg>
+                    </div>
+                    <h3>Tool di Recovery</h3>
+                    <p>Sviluppo di tool automatici per il recovery e la configurazione di dispositivi hardware. Soluzioni one-click per risolvere problemi comuni.</p>
+                    <ul class="service-features">
+                        <li>Recovery automatico</li>
+                        <li>Configurazione guidata</li>
+                        <li>Diagnostica hardware</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                        </svg>
+                    </div>
+                    <h3>Consulenza Tecnica</h3>
+                    <p>Supporto tecnico specializzato per progetti embedded e IoT. Analisi requisiti, scelta componenti e risoluzione problematiche hardware/software.</p>
+                    <ul class="service-features">
+                        <li>Analisi e progettazione</li>
+                        <li>Scelta componenti</li>
+                        <li>Troubleshooting avanzato</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Progetti Section -->
+    <section id="progetti" class="projects">
+        <div class="container">
+            <h2 class="section-title">Progetti in Evidenza</h2>
+            <p class="section-subtitle">Alcuni dei lavori realizzati</p>
+
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>LILYGO SIM7000G Recovery Tool</h3>
+                        <a href="https://github.com/playloud679/LILYGO_SIM7000G_Recovery_Tool" target="_blank" class="project-link">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                        </a>
+                    </div>
+                    <p class="project-description">
+                        Tool automatico di recovery per schede LILYGO T-SIM7000G con modem non responsivi.
+                        Configurazione one-click per reti europee e italiane.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">C++</span>
+                        <span class="tag">Embedded</span>
+                        <span class="tag">SIM7000G</span>
+                        <span class="tag">Recovery</span>
+                    </div>
+                    <div class="project-features">
+                        <h4>Caratteristiche:</h4>
+                        <ul>
+                            <li>Recovery automatico con un click</li>
+                            <li>Configurazione pre-impostata per EU/Italia</li>
+                            <li>Interfaccia user-friendly</li>
+                            <li>Diagnostica integrata</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Dashboard Grafici Web</h3>
+                        <a href="https://github.com/playloud679/Grafici_web" target="_blank" class="project-link">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                        </a>
+                    </div>
+                    <p class="project-description">
+                        Dashboard web interattiva con grafici dinamici per visualizzazione dati.
+                        Design responsive e moderno con Chart.js.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">HTML5</span>
+                        <span class="tag">CSS3</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">Chart.js</span>
+                    </div>
+                    <div class="project-features">
+                        <h4>Caratteristiche:</h4>
+                        <ul>
+                            <li>4 tipologie di grafici interattivi</li>
+                            <li>Design responsive mobile-first</li>
+                            <li>Ottimizzazione performance</li>
+                            <li>Pronto per hosting Aruba</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Competenze Section -->
+    <section class="skills">
+        <div class="container">
+            <h2 class="section-title">Competenze Tecniche</h2>
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <h4>Linguaggi</h4>
+                    <ul>
+                        <li>C/C++</li>
+                        <li>Python</li>
+                        <li>JavaScript</li>
+                        <li>Assembly</li>
+                    </ul>
+                </div>
+                <div class="skill-item">
+                    <h4>Hardware</h4>
+                    <ul>
+                        <li>LILYGO boards</li>
+                        <li>ESP32/ESP8266</li>
+                        <li>Arduino</li>
+                        <li>Modem SIM7000G</li>
+                    </ul>
+                </div>
+                <div class="skill-item">
+                    <h4>Protocolli</h4>
+                    <ul>
+                        <li>MQTT</li>
+                        <li>HTTP/HTTPS</li>
+                        <li>CoAP</li>
+                        <li>Serial (UART/I2C/SPI)</li>
+                    </ul>
+                </div>
+                <div class="skill-item">
+                    <h4>Tool & IDE</h4>
+                    <ul>
+                        <li>Arduino IDE</li>
+                        <li>PlatformIO</li>
+                        <li>Git/GitHub</li>
+                        <li>VS Code</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contatti Section -->
+    <section id="contatti" class="contact">
+        <div class="container">
+            <h2 class="section-title">Contatti</h2>
+            <p class="section-subtitle">Hai un progetto o vuoi collaborare? Parliamone!</p>
+
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3>GitHub</h3>
+                            <a href="https://github.com/playloud679" target="_blank">github.com/playloud679</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3>Email</h3>
+                            <a href="mailto:info@steolab.it">info@steolab.it</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3>Ubicazione</h3>
+                            <p>Italia</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form-wrapper">
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Nome</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Oggetto</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Messaggio</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Invia Messaggio</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="img/logo.png" alt="steolab logo">
+                    <p>Sviluppo Embedded & IoT Solutions</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Link Utili</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#servizi">Servizi</a></li>
+                        <li><a href="#progetti">Progetti</a></li>
+                        <li><a href="#contatti">Contatti</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h4>Seguimi</h4>
+                    <a href="https://github.com/playloud679" target="_blank" class="social-link">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 steolab. Tutti i diritti riservati.</p>
+            </div>
         </div>
     </footer>
 
-    <script src="js/charts.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
