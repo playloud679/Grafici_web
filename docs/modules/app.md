@@ -9,8 +9,8 @@ Streamlit entry point and user interface for the AquaScan report viewer.
 - Loads and pairs uploaded reports into in-session datasets.
 - Lets the user enable/disable datasets, apply a per-dataset scale factor,
   and select which quantities to plot.
-- Renders an editable **per-quantity filter table** (enabled/window/poly/passes),
-  so each quantity is filtered independently.
+- Renders an editable **per-quantity filter table** (enabled/window/poly/passes
+  and "Unisci zeri"), so each quantity is filtered and cleaned independently.
 - Provides a **synchronous row trim** in the sidebar, shared by every quantity
   and dataset (single time base).
 - Calls `src/plotting.py` to build the figure and offers PNG/CSV downloads.

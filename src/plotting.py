@@ -89,6 +89,21 @@ def _filter_with_gaps(times, values, filter_params, max_gap_s: int = _MAX_GAP_S)
     return out
 
 
+def _join_zero_gaps(times, values):
+    """Replace interior zero runs with a straight line between the adjacent
+    non-zero samples.
+
+    Zeros are treated as missing; the gap is filled by time-based linear
+    interpolation so the plotted line runs directly from the last non-zero
+    sample to the next one. Zeros at the edges (no non-zero anchor on one side)
+    are kept unchanged.
+    """
+    series = pd.Series(np.asarray(values, dtype=float), index=pd.to_datetime(times))
+    masked = series.mask(series == 0)
+    interpolated = masked.interpolate(method="time", limit_area="inside")
+    return interpolated.where(interpolated.notna(), series).to_numpy()
+
+
 def _params_for(quantity_params, key):
     """Return the filter parameters for one quantity, filled with defaults."""
     params = dict(DEFAULT_FILTER_PARAMS)
@@ -161,6 +176,10 @@ def create_plot(datasets, quantities, quantity_params, trim_params, display_opti
             times, values = _valid_series(df, q.key, q.scale * ds["scale_factor"])
             if len(values) == 0:
                 continue
+
+            # Optional per-quantity cleaning: bridge zero runs with a straight line.
+            if params.get("join_zeros"):
+                values = pd.Series(_join_zero_gaps(times, values))
 
             color = _COLORS[idx % len(_COLORS)]
             label_base = ds["name"][:25]

@@ -152,6 +152,50 @@ class TestSynchronousTrim(unittest.TestCase):
             self.assertAlmostEqual(ax.get_xlim()[1], mdates.date2num(df["Time"].iloc[44]), places=3)
 
 
+class TestJoinZeros(unittest.TestCase):
+    def _times(self, n):
+        return pd.date_range("2026-01-01", periods=n, freq="15min")
+
+    def test_interior_zero_run_becomes_straight_line(self):
+        times = self._times(5)
+        values = pd.Series([2.0, 0.0, 0.0, 0.0, 4.0])
+        out = plotting._join_zero_gaps(times, values)
+        np.testing.assert_allclose(out, [2.0, 2.5, 3.0, 3.5, 4.0])
+
+    def test_edge_zeros_are_kept(self):
+        times = self._times(5)
+        values = pd.Series([0.0, 2.0, 0.0, 4.0, 0.0])
+        out = plotting._join_zero_gaps(times, values)
+        self.assertEqual(out[0], 0.0)
+        self.assertEqual(out[-1], 0.0)
+        self.assertAlmostEqual(out[2], 3.0)
+
+    def test_all_zeros_unchanged(self):
+        times = self._times(4)
+        values = pd.Series([0.0, 0.0, 0.0, 0.0])
+        out = plotting._join_zero_gaps(times, values)
+        np.testing.assert_array_equal(out, values.to_numpy())
+
+    def test_create_plot_with_join_zeros(self):
+        from schema import detect_quantities
+
+        df = pd.DataFrame(
+            {
+                "Time": self._times(40),
+                "Turbidity NTU": [0.0 if 10 <= i <= 20 else 5.0 for i in range(40)],
+            }
+        )
+        qs = [q for q in detect_quantities(df) if q.key == "Turbidity NTU"]
+        fig = plotting.create_plot(
+            [{"name": "a", "data": df, "enabled": True, "scale_factor": 1.0}],
+            qs,
+            {"Turbidity NTU": {"enabled": False, "join_zeros": True}},
+            {"trim_start": 0, "trim_end": 0},
+            {"show_original": True, "show_filtered": False, "plot_height": 3.0},
+        )
+        self.assertEqual(len(fig.axes), 1)
+
+
 class TestGapHandling(unittest.TestCase):
     def test_regular_sampling_is_not_broken(self):
         times, values = _series()

@@ -172,6 +172,10 @@ def _render_sidebar():
                 "Num Passaggi", min_value=1, max_value=5, value=3,
                 help="Numero di passaggi del filtro",
             )
+        defaults["join_zeros"] = st.checkbox(
+            "Unisci zeri (predefinito)", value=False,
+            help="Tratta gli zeri come mancanti e collega con una linea retta tra i valori non-zero adiacenti",
+        )
 
         if st.button("⬇️ Applica i predefiniti a tutte le grandezze"):
             for key in list(st.session_state.quantity_params.keys()):
@@ -275,6 +279,7 @@ def _render_quantity_params(selected, defaults) -> None:
                 "Window": int(params["window_length"]),
                 "Poly": int(params["poly_order"]),
                 "Passaggi": int(params["num_passes"]),
+                "Unisci zeri": bool(params.get("join_zeros", False)),
             }
         )
 
@@ -287,6 +292,10 @@ def _render_quantity_params(selected, defaults) -> None:
             "Window": st.column_config.NumberColumn("Window", min_value=5, max_value=101, step=2),
             "Poly": st.column_config.NumberColumn("Poly", min_value=1, max_value=5, step=1),
             "Passaggi": st.column_config.NumberColumn("Passaggi", min_value=1, max_value=5, step=1),
+            "Unisci zeri": st.column_config.CheckboxColumn(
+                "Unisci zeri",
+                help="Tratta gli zeri come mancanti e unisce con una linea retta tra i non-zero adiacenti",
+            ),
         },
     )
 
@@ -303,6 +312,7 @@ def _render_quantity_params(selected, defaults) -> None:
             "window_length": window,
             "poly_order": int(row["Poly"]),
             "num_passes": int(row["Passaggi"]),
+            "join_zeros": bool(row["Unisci zeri"]),
         }
 
 

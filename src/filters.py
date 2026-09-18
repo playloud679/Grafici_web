@@ -14,6 +14,7 @@ DEFAULT_FILTER_PARAMS = {
     "window_length": 51,
     "poly_order": 2,
     "num_passes": 3,
+    "join_zeros": False,
 }
 
 

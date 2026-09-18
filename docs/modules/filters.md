@@ -8,7 +8,8 @@ Savitzky-Golay smoothing helpers.
 
 ## Public interface
 
-- `DEFAULT_FILTER_PARAMS` — default filter/trim settings dict.
+- `DEFAULT_FILTER_PARAMS` — default per-quantity filter settings dict
+  (`enabled`, `window_length`, `poly_order`, `num_passes`, `join_zeros`).
 - `apply_filter(data, window_length, poly_order, num_passes) -> ndarray`
 
 ## Behavior notes

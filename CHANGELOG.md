@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] - 2026-09-18
+
+### Added
+- **Per-quantity "Unisci zeri" option**: treats zeros as missing and bridges the
+  interior zero runs with a straight line between the last non-zero sample and
+  the next one. Edge zeros (no anchor on one side) are kept.
+
 ## [0.3.0] - 2026-09-18
 
 ### Added

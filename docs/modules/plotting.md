@@ -12,6 +12,8 @@ Matplotlib figure construction for multi-quantity comparisons.
 ## Public interface
 
 - `create_plot(datasets, quantities, quantity_params, trim_params, display_options) -> Figure`
+- `_join_zero_gaps(times, values) -> ndarray` — replace interior zero runs with a
+  straight line between the adjacent non-zero samples (per-quantity `join_zeros`).
 
 `quantity_params` maps each quantity key to its own filter settings, falling
 back to `filters.DEFAULT_FILTER_PARAMS`. `trim_params` is the synchronous
@@ -29,6 +31,10 @@ may include `plot_height` (inches per subplot, default 3.4).
 
 ## Behavior notes
 
+- If a quantity has `join_zeros` enabled, zeros are treated as missing and the
+  interior runs are filled by time-based linear interpolation, so the line runs
+  straight from the last non-zero sample to the next one. Zeros at the edges are
+  kept.
 - Filtering is applied per contiguous sampling segment (`_filter_with_gaps`),
   split only on gaps longer than 2 h. The regular ~15 min AquaScan sampling
   therefore stays in a single segment, so the filter controls take full effect.
