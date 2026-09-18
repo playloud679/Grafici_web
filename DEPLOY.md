@@ -1,12 +1,12 @@
 # Deploy rapido (Streamlit / Render)
 
 ## Prerequisiti
-- Repo su GitHub con questi file in root: `turbidity_app_web.py`, `requirements.txt`, `Procfile`, CSV di esempio (leggeri) opzionali.
+- Repo su GitHub con questi file in root: `app.py`, `src/`, `requirements.txt`, `Procfile`, CSV di esempio (leggeri) opzionali.
 - Python 3.9+ consigliato. Le librerie sono fissate in `requirements.txt` per coerenza con lo sviluppo locale.
 
 ## Streamlit Community Cloud (più semplice)
 1. Push su GitHub.
-2. Vai su https://streamlit.io e crea una nuova app: seleziona repo/branch/file `turbidity_app_web.py`.
+2. Vai su https://streamlit.io e crea una nuova app: seleziona repo/branch/file `app.py`.
 3. Nessuna configurazione porte necessaria; i file CSV li carichi dal browser.
 4. Aggiorna `requirements.txt` se aggiungi librerie, poi redeploy automatico.
 
@@ -14,7 +14,7 @@
 1. Push su GitHub.
 2. Crea un nuovo servizio web e indica:
    - Build: `pip install -r requirements.txt`
-   - Start command: dal `Procfile` → `web: streamlit run turbidity_app_web.py --server.port $PORT --server.address 0.0.0.0`
+   - Start command: dal `Procfile` → `web: streamlit run app.py --server.port $PORT --server.address 0.0.0.0`
 3. Abilita persistenza solo se vuoi salvare file; per uso standard i CSV restano solo in sessione.
 
 ## Note operative

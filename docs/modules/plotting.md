@@ -1,0 +1,51 @@
+# Module: src/plotting.py
+
+Matplotlib figure construction for multi-quantity comparisons.
+
+## Responsibility
+
+- Renders one stacked subplot per selected quantity, sharing the time axis.
+- Draws original (thin, low-alpha) and filtered (bold) series per dataset.
+- Applies the quantity scale and the per-dataset scale factor.
+- Breaks lines across sampling gaps to avoid misleading connections.
+
+## Public interface
+
+- `create_plot(datasets, quantities, quantity_params, trim_params, display_options) -> Figure`
+
+`quantity_params` maps each quantity key to its own filter settings, falling
+back to `filters.DEFAULT_FILTER_PARAMS`. `trim_params` is the synchronous
+`{trim_start, trim_end}` row trim shared by every quantity. `display_options`
+may include `plot_height` (inches per subplot, default 3.4).
+
+## Invariants
+
+- Each subplot y-label carries the quantity unit (`label [unit]`).
+- Only rows with valid (non-NaN) values for a quantity are plotted.
+- The row trim is applied once per dataset, so every subplot shares the same
+  time base and `xlim`.
+- Every subplot shows its own date/time tick labels (`sharex=False`), so each
+  chart is self-contained.
+
+## Behavior notes
+
+- Filtering is applied per contiguous sampling segment (`_filter_with_gaps`),
+  split only on gaps longer than 2 h. The regular ~15 min AquaScan sampling
+  therefore stays in a single segment, so the filter controls take full effect.
+- Smoothed values are clamped to the segment's observed range (`_smooth_segment`)
+  so Savitzky-Golay overshoot (e.g. below zero) never appears.
+- Filtering is best-effort: on failure the original series is kept and the
+  exception is swallowed (original data is already drawn).
+
+## Edge cases
+
+- Gaps larger than 2 h break lines (`_break_at_gaps`) and delimit filtering
+  segments (`_filter_with_gaps`).
+- Empty quantities render a "No data" placeholder instead of raising.
+
+## Validation
+
+```bash
+python -m py_compile src/plotting.py
+python -m unittest discover -s tests -v
+```
