@@ -1,6 +1,6 @@
 # AquaScan Data Viewer
 
-[![Version](https://img.shields.io/badge/version-0.4.0-blue.svg)](VERSION)
+[![Version](https://img.shields.io/badge/version-0.5.0-blue.svg)](VERSION)
 [![Standard](https://img.shields.io/badge/standard-GOLDEN__STD-gold.svg)](GOLDEN_STD.md)
 [![Addendum](https://img.shields.io/badge/addendum-STREAMLIT__SAAS-lightgrey.svg)](addenda/STREAMLIT_SAAS.md)
 
@@ -16,11 +16,17 @@ position — and plots selected quantities with their unit of measure.
   human label + unit catalog, unknown ones are still ingested.
 - 📈 One stacked subplot per selected quantity, sharing the time axis, with
   Savitzky-Golay smoothing and gap-aware lines.
+- 🚨 NTU guard thresholds shown as yellow/red bands on the turbidity subplot.
 - 🎛️ **Independent filter/trim parameters for each quantity** (editable table),
   plus a per-quantity **"Unisci zeri"** option that bridges zero runs with a
   straight line between the adjacent non-zero samples.
 - 📍 Merges position data (last known location carried backward).
 - 💾 Exports the merged CSV and the chart as PNG.
+- 📥 Downloads a single XLS with all raw rows trimmed of the configured
+  initial/final records, a progressive sample-number column (`Campione`),
+  user-selectable data columns (`Campione` and `Time` are always included),
+  two adjustable NTU guard-threshold exceedance columns, and yellow/red row
+  highlighting for threshold breaches.
 
 ## Project conventions
 

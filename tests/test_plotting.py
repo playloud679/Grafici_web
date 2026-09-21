@@ -213,5 +213,51 @@ class TestGapHandling(unittest.TestCase):
         self.assertTrue(np.isnan(v_break).any())
 
 
+class TestNtuThresholdBands(unittest.TestCase):
+    def _df(self):
+        from schema import detect_quantities
+
+        df = pd.DataFrame(
+            {
+                "Time": pd.date_range("2026-01-01", periods=50, freq="15min"),
+                "Turbidity NTU": np.linspace(0, 8, 50),
+            }
+        )
+        qs = [q for q in detect_quantities(df) if q.key == "Turbidity NTU"]
+        return df, qs
+
+    def test_draws_yellow_and_red_bands(self):
+        df, qs = self._df()
+        fig = plotting.create_plot(
+            [{"name": "a", "data": df, "enabled": True, "scale_factor": 1.0}],
+            qs,
+            {},
+            {"trim_start": 0, "trim_end": 0},
+            {"show_original": True, "show_filtered": False, "plot_height": 3.0},
+            ntu_thresholds=(4.0, 7.0),
+        )
+        ax = fig.axes[0]
+        self.assertEqual(len(ax.patches), 2)
+        yellow = ax.patches[0].get_facecolor()
+        red = ax.patches[1].get_facecolor()
+        self.assertAlmostEqual(yellow[0], 1.0)
+        self.assertAlmostEqual(yellow[1], 1.0)
+        self.assertAlmostEqual(yellow[2], 0.0)
+        self.assertAlmostEqual(red[0], 1.0)
+        self.assertAlmostEqual(red[1], 0.0)
+        self.assertAlmostEqual(red[2], 0.0)
+
+    def test_no_bands_without_thresholds(self):
+        df, qs = self._df()
+        fig = plotting.create_plot(
+            [{"name": "a", "data": df, "enabled": True, "scale_factor": 1.0}],
+            qs,
+            {},
+            {"trim_start": 0, "trim_end": 0},
+            {"show_original": True, "show_filtered": False, "plot_height": 3.0},
+        )
+        self.assertEqual(len(fig.axes[0].patches), 0)
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -130,7 +130,7 @@ def _valid_series(df: pd.DataFrame, key: str, scale: float):
     return df["Time"][valid].reset_index(drop=True), values[valid].reset_index(drop=True)
 
 
-def create_plot(datasets, quantities, quantity_params, trim_params, display_options):
+def create_plot(datasets, quantities, quantity_params, trim_params, display_options, ntu_thresholds=None):
     """Build the comparison figure.
 
     ``datasets`` is a list of dicts with ``name``, ``data`` (DataFrame),
@@ -138,7 +138,10 @@ def create_plot(datasets, quantities, quantity_params, trim_params, display_opti
     :class:`schema.Quantity`. ``quantity_params`` maps each quantity key to its
     own filter settings (see :data:`filters.DEFAULT_FILTER_PARAMS`).
     ``trim_params`` is the synchronous ``{trim_start, trim_end}`` row trim used
-    for every quantity and dataset.
+    for every quantity and dataset. ``ntu_thresholds`` optionally provides
+    ``(low, high)`` NTU guard thresholds; when given, the ``Turbidity NTU``
+    subplot draws a yellow warning band between them and a red alarm band above
+    the high threshold.
     """
     trim_start = max(0, int(trim_params.get("trim_start", 0)))
     trim_end = max(0, int(trim_params.get("trim_end", 0)))
@@ -220,6 +223,20 @@ def create_plot(datasets, quantities, quantity_params, trim_params, display_opti
             ax.grid(True, alpha=0.3, linestyle="--")
             if qi == 0:
                 ax.legend(fontsize=8, loc="best", ncol=min(3, max(1, len(prepared))))
+
+            # NTU guard-threshold bands: yellow warning zone between the two
+            # thresholds, red alarm zone above the high threshold. Bands are
+            # clipped to the auto y-range so they never distort the axis.
+            if q.key == "Turbidity NTU" and ntu_thresholds is not None:
+                low, high = ntu_thresholds
+                ymin, ymax = ax.get_ylim()
+                yellow_top = min(high, ymax)
+                if low < yellow_top:
+                    ax.axhspan(max(low, ymin), yellow_top, color="yellow", alpha=0.25, zorder=0)
+                red_bottom = max(high, ymin)
+                if red_bottom < ymax:
+                    ax.axhspan(red_bottom, ymax, color="red", alpha=0.25, zorder=0)
+                ax.set_ylim(ymin, ymax)
         else:
             ax.text(0.5, 0.5, "No data", transform=ax.transAxes,
                     ha="center", va="center", fontsize=12, color="gray")

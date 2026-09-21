@@ -23,12 +23,13 @@ import streamlit as st
 # process pattern from the Streamlit & SaaS addendum).
 sys.path.insert(0, str(Path(__file__).resolve().parent / "src"))
 
+import export  # noqa: E402
 import filters  # noqa: E402
 import loader  # noqa: E402
 import plotting  # noqa: E402
 import schema  # noqa: E402
 
-for _mod in (schema, loader, filters, plotting):
+for _mod in (schema, loader, filters, plotting, export):
     importlib.reload(_mod)
 
 st.set_page_config(
@@ -56,6 +57,7 @@ def _init_state() -> None:
     st.session_state.setdefault("datasets", [])
     st.session_state.setdefault("quantity_params", {})
     st.session_state.setdefault("params_version", 0)
+    st.session_state.setdefault("ntu_thresholds", (4.0, 7.0))
 
 
 def _all_quantities(datasets) -> list[schema.Quantity]:
@@ -261,6 +263,62 @@ def _render_datasets() -> None:
                 )
 
 
+def _render_export(trim_params) -> None:
+    """Offer a single XLS download with trimmed rows + selectable columns."""
+    st.header("📤 Esporta Dati Raw")
+    frame = export.build_export_frame(st.session_state.datasets, trim_params)
+    if frame.empty:
+        st.info("Nessun dato raw da esportare: carica report abilitati o riduci il taglio righe.")
+        return
+
+    st.caption(
+        f"{len(frame)} campioni • colonne fisse: {', '.join(export.FIXED_COLUMNS)}"
+    )
+
+    selectable = export.selectable_columns(frame)
+    selected = st.multiselect(
+        "Colonne dati da esportare",
+        options=selectable,
+        default=[],
+        help=(
+            "Sample n° e timestamp sono sempre inclusi. Le altre colonne sono "
+            "disattivate di default: attiva solo quelle che ti servono. "
+            "Vengono eliminate le righe senza alcun valore nelle colonne scelte."
+        ),
+    )
+
+    st.subheader("🚨 Soglie di guardia NTU")
+    thr_col1, thr_col2 = st.columns(2)
+    with thr_col1:
+        thr_low = st.number_input(
+            "Soglia 1 (NTU)", min_value=0.0, value=4.0, step=0.5, format="%.2f",
+            help="La colonna vale 1 quando la torbidità è >= di questa soglia, altrimenti 0.",
+        )
+    with thr_col2:
+        thr_high = st.number_input(
+            "Soglia 2 (NTU)", min_value=0.0, value=7.0, step=0.5, format="%.2f",
+            help="La colonna vale 1 quando la torbidità è >= di questa soglia, altrimenti 0.",
+        )
+    st.session_state["ntu_thresholds"] = (thr_low, thr_high)
+
+    export_df = export.subset_export(frame, selected, thresholds=(thr_low, thr_high))
+
+    st.caption(
+        f"{len(export_df)} record esportati • colonne fisse: {', '.join(export.FIXED_COLUMNS)}"
+    )
+
+    buf = BytesIO()
+    export.write_export_xlsx(export_df, (thr_low, thr_high), buf)
+    buf.seek(0)
+    st.download_button(
+        "⬇️ Scarica XLS (dati raw depurati)",
+        data=buf,
+        file_name=f"aquascan_raw_{pd.Timestamp.now():%Y%m%d_%H%M%S}.xlsx",
+        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        key="dl_raw_xls",
+    )
+
+
 def _render_quantity_params(selected, defaults) -> None:
     """Editable table: one row per selected quantity, independent parameters."""
     st.subheader("🎛️ Parametri per grandezza")
@@ -346,7 +404,12 @@ def _render_plot(defaults, trim_params, display_options) -> None:
 
     try:
         fig = plotting.create_plot(
-            st.session_state.datasets, selected, st.session_state.quantity_params, trim_params, display_options
+            st.session_state.datasets,
+            selected,
+            st.session_state.quantity_params,
+            trim_params,
+            display_options,
+            ntu_thresholds=st.session_state.get("ntu_thresholds", (4.0, 7.0)),
         )
         st.pyplot(fig, use_container_width=True)
 
@@ -376,6 +439,8 @@ def main() -> None:
         st.divider()
         _render_datasets()
         st.divider()
+        _render_export(trim_params)
+        st.divider()
         _render_plot(defaults, trim_params, display_options)
 
     st.divider()
@@ -387,7 +452,7 @@ def main() -> None:
             2. **Scegli le grandezze**: seleziona una o più grandezze; ognuna viene disegnata con la propria unità di misura.
             3. **Parametri per grandezza**: nella tabella "Parametri per grandezza" imposta il filtro **indipendentemente** per ciascuna grandezza.
             4. **Taglio righe**: nella barra laterale, applicato in modo **sincrono** a tutte le grandezze.
-            5. **Esporta**: scarica il grafico in PNG o i dati uniti in CSV.
+            5. **Esporta**: scarica il grafico in PNG, i dati uniti in CSV, oppure un unico XLS con tutti i dati raw depurati dal taglio e numerati per campione (`Campione`).
 
             ### Grandezze riconosciute
             Il viewer rileva automaticamente tutte le colonne numeriche dei report

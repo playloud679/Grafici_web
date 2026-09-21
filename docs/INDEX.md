@@ -10,3 +10,4 @@ Mapping between source modules and their dedicated documentation, per
 | `src/loader.py` | [`modules/loader.md`](modules/loader.md) | CSV/location parsing, pairing, merging |
 | `src/filters.py` | [`modules/filters.md`](modules/filters.md) | Savitzky-Golay smoothing |
 | `src/plotting.py` | [`modules/plotting.md`](modules/plotting.md) | Matplotlib figure construction |
+| `src/export.py` | [`modules/export.md`](modules/export.md) | Raw XLS export frame building |

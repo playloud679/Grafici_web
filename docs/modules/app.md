@@ -14,6 +14,12 @@ Streamlit entry point and user interface for the AquaScan report viewer.
 - Provides a **synchronous row trim** in the sidebar, shared by every quantity
   and dataset (single time base).
 - Calls `src/plotting.py` to build the figure and offers PNG/CSV downloads.
+- Calls `src/export.py` to build a single raw XLS export (trimmed rows +
+  progressive sample numbers) with user-selectable data columns (`Campione` and
+  `Time` are always included) and two adjustable NTU guard-threshold columns,
+  and offers its download.
+- Shares the NTU guard thresholds between the export and the chart; the
+  `Turbidity NTU` subplot draws yellow/red bands at those thresholds.
 
 ## Public interface
 
@@ -22,8 +28,8 @@ Streamlit entry point and user interface for the AquaScan report viewer.
 ## Dependencies
 
 - `src/schema` (quantity detection), `src/loader` (report loading),
-  `src/filters` and `src/plotting` (chart).
-- `streamlit`, `pandas`.
+  `src/filters` and `src/plotting` (chart), `src/export` (raw XLS export).
+- `streamlit`, `pandas`, `openpyxl`.
 
 ## Behavior notes
 
@@ -31,6 +37,8 @@ Streamlit entry point and user interface for the AquaScan report viewer.
   Streamlit runs in a long-lived process (Streamlit & SaaS addendum §2).
 - `st.session_state["datasets"]` holds persistent dataset state;
   `st.session_state["quantity_params"]` holds per-quantity filter/trim settings;
+  `st.session_state["ntu_thresholds"]` holds the shared ``(low, high)`` NTU
+  guard thresholds;
   widget keys (`enabled_*`, `scale_*`, `dl_*`, `quantity_params_editor_*`) keep
   interactive/action keys separate from these collections to avoid
   `StreamlitAPIException` key collisions.

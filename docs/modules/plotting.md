@@ -8,10 +8,13 @@ Matplotlib figure construction for multi-quantity comparisons.
 - Draws original (thin, low-alpha) and filtered (bold) series per dataset.
 - Applies the quantity scale and the per-dataset scale factor.
 - Breaks lines across sampling gaps to avoid misleading connections.
+- Draws NTU guard-threshold bands on the `Turbidity NTU` subplot: a yellow
+  warning band between the two thresholds and a red alarm band above the high
+  threshold.
 
 ## Public interface
 
-- `create_plot(datasets, quantities, quantity_params, trim_params, display_options) -> Figure`
+- `create_plot(datasets, quantities, quantity_params, trim_params, display_options, ntu_thresholds=None) -> Figure`
 - `_join_zero_gaps(times, values) -> ndarray` — replace interior zero runs with a
   straight line between the adjacent non-zero samples (per-quantity `join_zeros`).
 
@@ -19,6 +22,7 @@ Matplotlib figure construction for multi-quantity comparisons.
 back to `filters.DEFAULT_FILTER_PARAMS`. `trim_params` is the synchronous
 `{trim_start, trim_end}` row trim shared by every quantity. `display_options`
 may include `plot_height` (inches per subplot, default 3.4).
+`ntu_thresholds` optionally provides `(low, high)` NTU guard thresholds.
 
 ## Invariants
 
@@ -42,6 +46,8 @@ may include `plot_height` (inches per subplot, default 3.4).
   so Savitzky-Golay overshoot (e.g. below zero) never appears.
 - Filtering is best-effort: on failure the original series is kept and the
   exception is swallowed (original data is already drawn).
+- The NTU bands are clipped to the auto y-range (they never force the axis to
+  expand) and are drawn behind the data with ``zorder=0``.
 
 ## Edge cases
 

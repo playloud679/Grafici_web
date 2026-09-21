@@ -5,6 +5,37 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.0] - 2026-09-21
+
+### Added
+- **Raw XLS export**: a single `.xlsx` download combines all enabled datasets,
+  applies the same synchronous `trim_start`/`trim_end` row trim used by the
+  charts, sorts rows by `Time`, and prepends a `Campione` column numbered
+  `1..n` from the first acquired sample onward.
+- **Column selection**: `Campione` and `Time` are always exported; every other
+  data column is individually toggleable and disabled by default. Rows without
+  any value in the selected columns are dropped and `Campione` is renumbered.
+- **NTU guard thresholds**: two exceedance columns (`Soglia {low} NTU`,
+  `Soglia {high} NTU`) are computed from turbidity with adjustable thresholds
+  (defaults 4 and 7 NTU); value 1 marks a reading at or above the threshold
+  (inclusive `>=`). Rows exceeding only threshold 1 are highlighted yellow,
+  rows exceeding threshold 2 are highlighted red in the XLSX.
+- **NTU guard bands in the chart**: the `Turbidity NTU` subplot draws a yellow
+  warning band between the two thresholds and a red alarm band above the high
+  threshold, clipped to the visible range.
+- New `src/export.py` module and `tests/test_export.py` suite; added `openpyxl`
+  to `requirements.txt` for Excel output.
+
+### Docs
+- Added `docs/modules/export.md`, registered it in `docs/INDEX.md`, and updated
+  `docs/modules/app.md`, `docs/modules/plotting.md` and `README.md`.
+
+### Validation
+- `python -m py_compile app.py src/*.py` — OK
+- `python -m unittest discover -s tests -v` — 51 tests OK
+- `AppTest.from_file("app.py")` headless — OK
+- `git diff --check` — OK
+
 ## [0.4.0] - 2026-09-18
 
 ### Added
